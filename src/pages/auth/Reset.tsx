@@ -1,10 +1,20 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function Reset() {
   const [email, setEmail] = useState("");
+  const auth = getAuth();
   const handleReset = () => {
-    // TODO: Handle password reset
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log("success");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("An error has occured: ", errorCode, errorMessage);
+      });
   };
 
   return (
