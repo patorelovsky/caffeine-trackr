@@ -6,6 +6,7 @@ import ResponsiveAppBar from "./pages/ResponsiveAppBar";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Reset from "./pages/auth/Reset";
+import Logout from "./pages/auth/Logout";
 
 const appLabel = "CaffeineTrackr";
 
@@ -48,6 +49,7 @@ export default function App() {
         <Route path={loginMenuItem.url} element={<Login />} />
         <Route path={registerMenuItem.url} element={<Register />} />
         <Route path={resetMenuItem.url} element={<Reset />} />
+        <Route path={logoutMenuItem.url} element={<Logout />} />
       </Routes>
     </BrowserRouter>
   );
