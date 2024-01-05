@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./configs/firebaseConfig";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { ResponsiveAppBarMenuItem } from "./types/responsiveAppBarMenuItem";
+import ResponsiveAppBar from "./pages/ResponsiveAppBar";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Reset from "./pages/auth/Reset";
 
-function App() {
+const appLabel = "CaffeineTrackr";
+
+const registerMenuItem: ResponsiveAppBarMenuItem = {
+  label: "Register",
+  url: "register",
+};
+const loginMenuItem: ResponsiveAppBarMenuItem = {
+  label: "Login",
+  url: "login",
+};
+const resetMenuItem: ResponsiveAppBarMenuItem = {
+  label: "Reset Password",
+  url: "reset-password",
+};
+const navMenuItems: ResponsiveAppBarMenuItem[] = [
+  registerMenuItem,
+  loginMenuItem,
+  resetMenuItem,
+];
+const logoutMenuItem: ResponsiveAppBarMenuItem = {
+  label: "Logout",
+  url: "logout",
+};
+const userMenuItems: ResponsiveAppBarMenuItem[] = [logoutMenuItem];
+
+export default function App() {
+  initializeApp(firebaseConfig);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ResponsiveAppBar
+        label={appLabel}
+        navMenuItems={navMenuItems}
+        userMenuItems={userMenuItems}
+        getNavigateFn={useNavigate}
+      />
+      <Routes>
+        <Route path="" element={<Login />} />
+        <Route path={loginMenuItem.url} element={<Login />} />
+        <Route path={registerMenuItem.url} element={<Register />} />
+        <Route path={resetMenuItem.url} element={<Reset />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
