@@ -4,43 +4,15 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { firebaseConfig } from "./configs/firebaseConfig";
 import ResponsiveAppBar from "./pages/ResponsiveAppBar";
-import Login from "./pages/auth/Login";
-import Logout from "./pages/auth/Logout";
-import Register from "./pages/auth/Register";
-import Reset from "./pages/auth/Reset";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { saveUser } from "./redux/slice/authSlice";
-import { ResponsiveAppBarMenuItem } from "./types/responsiveAppBarMenuItem";
 import { firebaseUserToUser } from "./utils/firebaseUserToUser";
+import { getNavMenuItems } from "./utils/getNavMenuItems";
+import { getUserMenuItems } from "./utils/getUserMenuItems";
 
 const appLabel = "CaffeineTrackr";
-
-const registerMenuItem: ResponsiveAppBarMenuItem = {
-  label: "Register",
-  url: "register",
-  isProtected: false,
-};
-const loginMenuItem: ResponsiveAppBarMenuItem = {
-  label: "Login",
-  url: "login",
-  isProtected: false,
-};
-const resetMenuItem: ResponsiveAppBarMenuItem = {
-  label: "Reset Password",
-  url: "reset-password",
-  isProtected: false,
-};
-const navMenuItems: ResponsiveAppBarMenuItem[] = [
-  registerMenuItem,
-  loginMenuItem,
-  resetMenuItem,
-];
-const logoutMenuItem: ResponsiveAppBarMenuItem = {
-  label: "Logout",
-  url: "logout",
-  isProtected: false,
-};
-const userMenuItems: ResponsiveAppBarMenuItem[] = [logoutMenuItem];
+const navMenuItems = getNavMenuItems();
+const userMenuItems = getUserMenuItems();
 
 export default function App() {
   initializeApp(firebaseConfig);
@@ -55,6 +27,10 @@ export default function App() {
     });
   }, [auth, appDispatch]);
 
+  const homePage = navMenuItems.filter(
+    ({ isProtected }) => isProtected === !!user
+  )[0]?.element;
+
   return (
     <BrowserRouter>
       <ResponsiveAppBar
@@ -65,11 +41,13 @@ export default function App() {
         user={user}
       />
       <Routes>
-        <Route path="" element={<Login />} />
-        <Route path={loginMenuItem.url} element={<Login />} />
-        <Route path={registerMenuItem.url} element={<Register />} />
-        <Route path={resetMenuItem.url} element={<Reset />} />
-        <Route path={logoutMenuItem.url} element={<Logout />} />
+        <Route path="" element={homePage} />
+        {navMenuItems.map(({ url, element }) => (
+          <Route key={url} path={url} element={element} />
+        ))}
+        {userMenuItems.map(({ url, element }) => (
+          <Route key={url} path={url} element={element} />
+        ))}
       </Routes>
     </BrowserRouter>
   );
