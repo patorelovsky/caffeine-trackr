@@ -18,7 +18,7 @@ export default function Register() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log("Error ocured: ", errorCode, errorMessage);
+        console.log("Error ocurred: ", errorCode, errorMessage);
       });
   };
 
