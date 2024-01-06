@@ -3,6 +3,7 @@ import Reset from "../pages/auth/Reset";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import IntakeLog from "../pages/IntakeLog";
+import NewIntake from "../pages/NewIntake";
 
 export function getNavMenuItems(): ResponsiveAppBarMenuItem[] {
   return [
@@ -29,6 +30,12 @@ export function getNavMenuItems(): ResponsiveAppBarMenuItem[] {
       url: "intake-log",
       isProtected: true,
       element: <IntakeLog />,
+    },
+    {
+      label: "New Intake",
+      url: "new-intake",
+      isProtected: true,
+      element: <NewIntake />,
     },
   ];
 }
