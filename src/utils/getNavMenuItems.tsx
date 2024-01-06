@@ -6,16 +6,16 @@ import Login from "../pages/auth/Login";
 export function getNavMenuItems(): ResponsiveAppBarMenuItem[] {
   return [
     {
-      label: "Register",
-      url: "register",
-      isProtected: false,
-      element: <Register />,
-    },
-    {
       label: "Login",
       url: "login",
       isProtected: false,
       element: <Login />,
+    },
+    {
+      label: "Register",
+      url: "register",
+      isProtected: false,
+      element: <Register />,
     },
     {
       label: "Reset Password",
