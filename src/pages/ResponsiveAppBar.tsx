@@ -98,16 +98,18 @@ export default function ResponsiveAppBar({
                 display: { xs: "block", md: "none" },
               }}
             >
-              {navMenuItems.map((navMenuItem) => (
-                <MenuItem
-                  key={navMenuItem.url}
-                  onClick={() => handleNavMenuItemClick(navMenuItem)}
-                >
-                  <Typography textAlign="center">
-                    {navMenuItem.label}
-                  </Typography>
-                </MenuItem>
-              ))}
+              {navMenuItems
+                .filter((navMenuItem) => navMenuItem.isProtected === !!user)
+                .map((navMenuItem) => (
+                  <MenuItem
+                    key={navMenuItem.url}
+                    onClick={() => handleNavMenuItemClick(navMenuItem)}
+                  >
+                    <Typography textAlign="center">
+                      {navMenuItem.label}
+                    </Typography>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
           <InsightsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -130,22 +132,24 @@ export default function ResponsiveAppBar({
             {label}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navMenuItems.map((navMenuItem) => (
-              <Button
-                key={navMenuItem.url}
-                onClick={() => handleNavMenuItemClick(navMenuItem)}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {navMenuItem.label}
-              </Button>
-            ))}
+            {navMenuItems
+              .filter((navMenuItem) => navMenuItem.isProtected === !!user)
+              .map((navMenuItem) => (
+                <Button
+                  key={navMenuItem.url}
+                  onClick={() => handleNavMenuItemClick(navMenuItem)}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {navMenuItem.label}
+                </Button>
+              ))}
           </Box>
 
           {user && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={user.email as string} />
+                  <Avatar></Avatar>
                 </IconButton>
               </Tooltip>
               <Menu

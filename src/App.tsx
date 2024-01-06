@@ -18,14 +18,17 @@ const appLabel = "CaffeineTrackr";
 const registerMenuItem: ResponsiveAppBarMenuItem = {
   label: "Register",
   url: "register",
+  isProtected: false,
 };
 const loginMenuItem: ResponsiveAppBarMenuItem = {
   label: "Login",
   url: "login",
+  isProtected: false,
 };
 const resetMenuItem: ResponsiveAppBarMenuItem = {
   label: "Reset Password",
   url: "reset-password",
+  isProtected: false,
 };
 const navMenuItems: ResponsiveAppBarMenuItem[] = [
   registerMenuItem,
@@ -35,6 +38,7 @@ const navMenuItems: ResponsiveAppBarMenuItem[] = [
 const logoutMenuItem: ResponsiveAppBarMenuItem = {
   label: "Logout",
   url: "logout",
+  isProtected: false,
 };
 const userMenuItems: ResponsiveAppBarMenuItem[] = [logoutMenuItem];
 
