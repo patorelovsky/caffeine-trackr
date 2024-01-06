@@ -8,16 +8,12 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const auth = getAuth();
   const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Singed in user: ", user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("An error occurred: ", errorCode, errorMessage);
-      });
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      // TODO: Show error
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("An error occurred: ", errorCode, errorMessage);
+    });
   };
 
   return (

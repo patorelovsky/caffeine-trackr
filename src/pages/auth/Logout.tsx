@@ -4,13 +4,10 @@ import { Box, Button } from "@mui/material";
 
 export default function Logout() {
   const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      console.log("user signed out");
-    })
-    .catch((error) => {
-      console.log("error", error);
-    });
+  signOut(auth).catch((error) => {
+    // TODO: Show error
+    console.log("error", error);
+  });
 
   const navigate = useNavigate();
 

@@ -8,18 +8,12 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const auth = getAuth();
   const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Registered user: ", user);
-        setEmail("");
-        setPassword("");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("Error ocurred: ", errorCode, errorMessage);
-      });
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      // TODO: Show error
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("Error ocurred: ", errorCode, errorMessage);
+    });
   };
 
   return (
