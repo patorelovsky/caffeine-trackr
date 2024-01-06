@@ -15,6 +15,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { CaffeineIntake } from "../types/intake";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { newIntakeMenuItem } from "../utils/getNavMenuItems";
 
 const data: CaffeineIntake[] = [
   {
@@ -44,8 +46,9 @@ const data: CaffeineIntake[] = [
 ];
 
 export default function IntakeLog() {
+  const navigate = useNavigate();
   const handleNewIntakeClick = () => {
-    // TODO: add new intake logic
+    navigate(newIntakeMenuItem.url);
   };
 
   return (
