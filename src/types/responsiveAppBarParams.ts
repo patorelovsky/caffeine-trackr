@@ -5,6 +5,5 @@ export type ResponsiveAppBarParams = {
     label: string;
     navMenuItems: ResponsiveAppBarMenuItem[];
     userMenuItems: ResponsiveAppBarMenuItem[];
-    getNavigateFn: () => (url: string) => void;
     user?: User;
 }

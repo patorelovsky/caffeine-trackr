@@ -14,13 +14,13 @@ import Typography from "@mui/material/Typography";
 import { MouseEvent, useState } from "react";
 import { ResponsiveAppBarMenuItem } from "../types/responsiveAppBarMenuItem";
 import { ResponsiveAppBarParams } from "../types/responsiveAppBarParams";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
 
 export default function ResponsiveAppBar({
   label,
   navMenuItems,
   userMenuItems,
-  getNavigateFn,
-  user,
 }: ResponsiveAppBarParams) {
   const [anchorElNav, setAnchorElNav] = useState<undefined | HTMLElement>();
   const [anchorElUser, setAnchorElUser] = useState<undefined | HTMLElement>();
@@ -36,7 +36,7 @@ export default function ResponsiveAppBar({
   const handleCloseUserMenu = () => {
     setAnchorElUser(undefined);
   };
-  const navigate = getNavigateFn();
+  const navigate = useNavigate();
   const handleNavMenuItemClick = (navMenuItem: ResponsiveAppBarMenuItem) => {
     handleCloseNavMenu();
     navigate(navMenuItem.url);
@@ -45,6 +45,7 @@ export default function ResponsiveAppBar({
     handleCloseUserMenu();
     navigate(userMenuItem.url);
   };
+  const isUserLogged = useAppSelector(({ auth }) => auth.value) != null;
 
   return (
     <AppBar position="static">
@@ -99,7 +100,9 @@ export default function ResponsiveAppBar({
               }}
             >
               {navMenuItems
-                .filter((navMenuItem) => navMenuItem.isProtected === !!user)
+                .filter(
+                  (navMenuItem) => navMenuItem.isProtected === isUserLogged
+                )
                 .map((navMenuItem) => (
                   <MenuItem
                     key={navMenuItem.url}
@@ -133,7 +136,7 @@ export default function ResponsiveAppBar({
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navMenuItems
-              .filter((navMenuItem) => navMenuItem.isProtected === !!user)
+              .filter((navMenuItem) => navMenuItem.isProtected === isUserLogged)
               .map((navMenuItem) => (
                 <Button
                   key={navMenuItem.url}
@@ -145,7 +148,7 @@ export default function ResponsiveAppBar({
               ))}
           </Box>
 
-          {user && (
+          {isUserLogged && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

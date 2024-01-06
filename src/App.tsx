@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { firebaseConfig } from "./configs/firebaseConfig";
 import ResponsiveAppBar from "./pages/ResponsiveAppBar";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
@@ -37,8 +37,6 @@ export default function App() {
         label={appLabel}
         navMenuItems={navMenuItems}
         userMenuItems={userMenuItems}
-        getNavigateFn={useNavigate}
-        user={user}
       />
       <Routes>
         <Route path="*" element={homePage} />
