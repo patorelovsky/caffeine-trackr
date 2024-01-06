@@ -169,11 +169,7 @@ export default function ResponsiveAppBar({
                     key={userMenuItem.url}
                     onClick={() => handleUserMenuItemClick(userMenuItem)}
                   >
-                    <Typography
-                      textAlign="center"
-                      component="a"
-                      href={userMenuItem.url}
-                    >
+                    <Typography textAlign="center">
                       {userMenuItem.label}
                     </Typography>
                   </MenuItem>
