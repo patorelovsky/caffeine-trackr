@@ -20,6 +20,7 @@ export default function ResponsiveAppBar({
   navMenuItems,
   userMenuItems,
   getNavigateFn,
+  user,
 }: ResponsiveAppBarParams) {
   const [anchorElNav, setAnchorElNav] = useState<undefined | HTMLElement>();
   const [anchorElUser, setAnchorElUser] = useState<undefined | HTMLElement>();
@@ -140,44 +141,46 @@ export default function ResponsiveAppBar({
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="TODO" src="TODO" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {userMenuItems.map((userMenuItem) => (
-                <MenuItem
-                  key={userMenuItem.url}
-                  onClick={() => handleUserMenuItemClick(userMenuItem)}
-                >
-                  <Typography
-                    textAlign="center"
-                    component="a"
-                    href={userMenuItem.url}
+          {user && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt={user.email as string} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {userMenuItems.map((userMenuItem) => (
+                  <MenuItem
+                    key={userMenuItem.url}
+                    onClick={() => handleUserMenuItemClick(userMenuItem)}
                   >
-                    {userMenuItem.label}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                    <Typography
+                      textAlign="center"
+                      component="a"
+                      href={userMenuItem.url}
+                    >
+                      {userMenuItem.label}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

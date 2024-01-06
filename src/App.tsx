@@ -1,12 +1,17 @@
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "./configs/firebaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { ResponsiveAppBarMenuItem } from "./types/responsiveAppBarMenuItem";
+import { firebaseConfig } from "./configs/firebaseConfig";
 import ResponsiveAppBar from "./pages/ResponsiveAppBar";
 import Login from "./pages/auth/Login";
+import Logout from "./pages/auth/Logout";
 import Register from "./pages/auth/Register";
 import Reset from "./pages/auth/Reset";
-import Logout from "./pages/auth/Logout";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { saveUser } from "./redux/slice/authSlice";
+import { ResponsiveAppBarMenuItem } from "./types/responsiveAppBarMenuItem";
+import { firebaseUserToUser } from "./utils/firebaseUserToUser";
 
 const appLabel = "CaffeineTrackr";
 
@@ -35,6 +40,16 @@ const userMenuItems: ResponsiveAppBarMenuItem[] = [logoutMenuItem];
 
 export default function App() {
   initializeApp(firebaseConfig);
+  const auth = getAuth();
+  const appDispatch = useAppDispatch();
+
+  const user = useAppSelector(({ auth }) => auth.value);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (newUser) => {
+      appDispatch(saveUser(firebaseUserToUser(newUser)));
+    });
+  }, [auth, appDispatch]);
 
   return (
     <BrowserRouter>
@@ -43,6 +58,7 @@ export default function App() {
         navMenuItems={navMenuItems}
         userMenuItems={userMenuItems}
         getNavigateFn={useNavigate}
+        user={user}
       />
       <Routes>
         <Route path="" element={<Login />} />
