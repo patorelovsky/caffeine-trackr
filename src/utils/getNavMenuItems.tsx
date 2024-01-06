@@ -5,37 +5,39 @@ import Login from "../pages/auth/Login";
 import IntakeLog from "../pages/IntakeLog";
 import NewIntake from "../pages/NewIntake";
 
+export const newIntakeMenuItem: ResponsiveAppBarMenuItem = {
+  label: "New Intake",
+  url: "/new-intake",
+  isProtected: true,
+  element: <NewIntake />,
+};
+
 export function getNavMenuItems(): ResponsiveAppBarMenuItem[] {
   return [
     {
       label: "Login",
-      url: "login",
+      url: "/login",
       isProtected: false,
       element: <Login />,
     },
     {
       label: "Register",
-      url: "register",
+      url: "/register",
       isProtected: false,
       element: <Register />,
     },
     {
       label: "Reset Password",
-      url: "reset-password",
+      url: "/reset-password",
       isProtected: false,
       element: <Reset />,
     },
     {
       label: "Intake Log",
-      url: "intake-log",
+      url: "/intake-log",
       isProtected: true,
       element: <IntakeLog />,
     },
-    {
-      label: "New Intake",
-      url: "new-intake",
-      isProtected: true,
-      element: <NewIntake />,
-    },
+    newIntakeMenuItem,
   ];
 }

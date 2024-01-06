@@ -5,7 +5,7 @@ export function getUserMenuItems(): ResponsiveAppBarMenuItem[] {
   return [
     {
       label: "Logout",
-      url: "logout",
+      url: "/logout",
       isProtected: false,
       element: <Logout />,
     },
