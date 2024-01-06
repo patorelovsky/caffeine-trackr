@@ -41,7 +41,7 @@ export default function App() {
         user={user}
       />
       <Routes>
-        <Route path="" element={homePage} />
+        <Route path="*" element={homePage} />
         {navMenuItems.map(({ url, element }) => (
           <Route key={url} path={url} element={element} />
         ))}
