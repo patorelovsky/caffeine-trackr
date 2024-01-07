@@ -2,7 +2,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-export default function Reset() {
+export default function ResetPassword() {
   const [email, setEmail] = useState("");
   const auth = getAuth();
   const handleReset = () => {

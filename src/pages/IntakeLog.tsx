@@ -13,10 +13,10 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { CaffeineIntake } from "../types/intake";
+import { CaffeineIntake } from "../types/caffeineIntake";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { newIntakeMenuItem } from "../utils/getNavMenuItems";
+import { newIntakeMenuItem } from ".";
 
 const data: CaffeineIntake[] = [
   {
@@ -50,6 +50,12 @@ export default function IntakeLog() {
   const handleNewIntakeClick = () => {
     navigate(newIntakeMenuItem.url);
   };
+  const handleEditIntakeClick = (intakeId: string) => {
+    navigate(`${newIntakeMenuItem.url}/${intakeId}`);
+  };
+  const handleDeleteIntakeClick = (intakeId: string) => {
+    // TODO: implement intake editing
+  };
 
   return (
     <Box sx={{ m: 2 }}>
@@ -79,14 +85,22 @@ export default function IntakeLog() {
                 <TableCell align="right">{`${content} mg`}</TableCell>
                 <TableCell align="center">
                   {
-                    <IconButton size="small" aria-label="edit">
+                    <IconButton
+                      onClick={() => handleEditIntakeClick(id)}
+                      size="small"
+                      aria-label="edit"
+                    >
                       <EditIcon fontSize="inherit" />
                     </IconButton>
                   }
                 </TableCell>
                 <TableCell align="center">
                   {
-                    <IconButton size="small" aria-label="delete">
+                    <IconButton
+                      onClick={() => handleDeleteIntakeClick(id)}
+                      size="small"
+                      aria-label="delete"
+                    >
                       <DeleteIcon fontSize="inherit" />
                     </IconButton>
                   }

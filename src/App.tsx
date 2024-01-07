@@ -3,16 +3,28 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { firebaseConfig } from "./configs/firebaseConfig";
+import {
+  editIntakeMenuItem,
+  intakeLogMenuItem,
+  loginMenuItem,
+  logoutMenuItem,
+  newIntakeMenuItem,
+  registerMenuItem,
+  resetPasswordMenuItem,
+} from "./pages";
+import IntakeLog from "./pages/IntakeLog";
 import ResponsiveAppBar from "./pages/ResponsiveAppBar";
+import Login from "./pages/auth/Login";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { saveUser } from "./redux/slice/authSlice";
 import { firebaseUserToUser } from "./utils/firebaseUserToUser";
-import { getNavMenuItems } from "./utils/getNavMenuItems";
-import { getUserMenuItems } from "./utils/getUserMenuItems";
+import NewIntake from "./pages/NewIntake";
+import Register from "./pages/auth/Register";
+import ResetPassword from "./pages/auth/ResetPassword";
+import Logout from "./pages/auth/Logout";
+import EditIntake from "./pages/EditIntake";
 
 const appLabel = "CaffeineTrackr";
-const navMenuItems = getNavMenuItems();
-const userMenuItems = getUserMenuItems();
 
 export default function App() {
   initializeApp(firebaseConfig);
@@ -27,9 +39,10 @@ export default function App() {
     });
   }, [auth, appDispatch]);
 
-  const homePage = navMenuItems.filter(
-    ({ isProtected }) => isProtected === !!user
-  )[0]?.element;
+  const navMenuItems = user
+    ? [intakeLogMenuItem, newIntakeMenuItem]
+    : [loginMenuItem, registerMenuItem, resetPasswordMenuItem];
+  const userMenuItems = user ? [logoutMenuItem] : [];
 
   return (
     <BrowserRouter>
@@ -39,13 +52,16 @@ export default function App() {
         userMenuItems={userMenuItems}
       />
       <Routes>
-        <Route path="*" element={homePage} />
-        {navMenuItems.map(({ url, element }) => (
-          <Route key={url} path={url} element={element} />
-        ))}
-        {userMenuItems.map(({ url, element }) => (
-          <Route key={url} path={url} element={element} />
-        ))}
+        <Route path="*" element={user ? <IntakeLog /> : <Login />} />
+        user ? (
+        <Route path={logoutMenuItem.url} element={<Logout />} />
+        <Route path={intakeLogMenuItem.url} element={<IntakeLog />} />
+        <Route path={newIntakeMenuItem.url} element={<NewIntake />} />
+        <Route path={editIntakeMenuItem.url} element={<EditIntake />} />
+        ) : (
+        <Route path={loginMenuItem.url} element={<Login />} />
+        <Route path={registerMenuItem.url} element={<Register />} />
+        <Route path={resetPasswordMenuItem.url} element={<ResetPassword />} />)
       </Routes>
     </BrowserRouter>
   );

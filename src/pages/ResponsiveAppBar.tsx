@@ -15,7 +15,6 @@ import { MouseEvent, useState } from "react";
 import { ResponsiveAppBarMenuItem } from "../types/responsiveAppBarMenuItem";
 import { ResponsiveAppBarParams } from "../types/responsiveAppBarParams";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../redux/hooks";
 
 export default function ResponsiveAppBar({
   label,
@@ -45,7 +44,6 @@ export default function ResponsiveAppBar({
     handleCloseUserMenu();
     navigate(userMenuItem.url);
   };
-  const isUserLogged = useAppSelector(({ auth }) => auth.value) != null;
 
   return (
     <AppBar position="static">
@@ -99,20 +97,16 @@ export default function ResponsiveAppBar({
                 display: { xs: "block", md: "none" },
               }}
             >
-              {navMenuItems
-                .filter(
-                  (navMenuItem) => navMenuItem.isProtected === isUserLogged
-                )
-                .map((navMenuItem) => (
-                  <MenuItem
-                    key={navMenuItem.url}
-                    onClick={() => handleNavMenuItemClick(navMenuItem)}
-                  >
-                    <Typography textAlign="center">
-                      {navMenuItem.label}
-                    </Typography>
-                  </MenuItem>
-                ))}
+              {navMenuItems.map((navMenuItem) => (
+                <MenuItem
+                  key={navMenuItem.url}
+                  onClick={() => handleNavMenuItemClick(navMenuItem)}
+                >
+                  <Typography textAlign="center">
+                    {navMenuItem.label}
+                  </Typography>
+                </MenuItem>
+              ))}
             </Menu>
           </Box>
           <InsightsIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -135,20 +129,18 @@ export default function ResponsiveAppBar({
             {label}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {navMenuItems
-              .filter((navMenuItem) => navMenuItem.isProtected === isUserLogged)
-              .map((navMenuItem) => (
-                <Button
-                  key={navMenuItem.url}
-                  onClick={() => handleNavMenuItemClick(navMenuItem)}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {navMenuItem.label}
-                </Button>
-              ))}
+            {navMenuItems.map((navMenuItem) => (
+              <Button
+                key={navMenuItem.url}
+                onClick={() => handleNavMenuItemClick(navMenuItem)}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {navMenuItem.label}
+              </Button>
+            ))}
           </Box>
 
-          {isUserLogged && (
+          {userMenuItems.length > 0 && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
