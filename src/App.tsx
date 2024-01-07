@@ -57,7 +57,10 @@ export default function App() {
         <Route path={logoutMenuItem.url} element={<Logout />} />
         <Route path={intakeLogMenuItem.url} element={<IntakeLog />} />
         <Route path={newIntakeMenuItem.url} element={<NewIntake />} />
-        <Route path={editIntakeMenuItem.url} element={<EditIntake />} />
+        <Route
+          path={`${editIntakeMenuItem.url}/:id`}
+          element={<EditIntake />}
+        />
         ) : (
         <Route path={loginMenuItem.url} element={<Login />} />
         <Route path={registerMenuItem.url} element={<Register />} />

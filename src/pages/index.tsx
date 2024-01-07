@@ -26,5 +26,5 @@ export const newIntakeMenuItem: ResponsiveAppBarMenuItem = {
 };
 export const editIntakeMenuItem: ResponsiveAppBarMenuItem = {
   label: "Edit Intake",
-  url: "/edit-intake/:id",
+  url: "/edit-intake",
 };
