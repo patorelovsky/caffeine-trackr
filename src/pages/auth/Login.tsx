@@ -1,7 +1,7 @@
-import { Box, Button, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+import { Box, Button, TextField } from "@mui/material";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState("");

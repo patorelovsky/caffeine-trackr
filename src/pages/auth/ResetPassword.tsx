@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
-import { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useState } from "react";
 
 export default function ResetPassword() {
   const [email, setEmail] = useState("");

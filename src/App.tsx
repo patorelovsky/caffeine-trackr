@@ -12,17 +12,17 @@ import {
   registerMenuItem,
   resetPasswordMenuItem,
 } from "./pages";
+import EditIntake from "./pages/EditIntake";
 import IntakeLog from "./pages/IntakeLog";
+import NewIntake from "./pages/NewIntake";
 import ResponsiveAppBar from "./pages/ResponsiveAppBar";
 import Login from "./pages/auth/Login";
+import Logout from "./pages/auth/Logout";
+import Register from "./pages/auth/Register";
+import ResetPassword from "./pages/auth/ResetPassword";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { saveUser } from "./redux/slice/authSlice";
 import { firebaseUserToUser } from "./utils/firebaseUserToUser";
-import NewIntake from "./pages/NewIntake";
-import Register from "./pages/auth/Register";
-import ResetPassword from "./pages/auth/ResetPassword";
-import Logout from "./pages/auth/Logout";
-import EditIntake from "./pages/EditIntake";
 
 const appLabel = "CaffeineTrackr";
 

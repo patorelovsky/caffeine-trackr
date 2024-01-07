@@ -12,9 +12,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { MouseEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ResponsiveAppBarMenuItem } from "../types/responsiveAppBarMenuItem";
 import { ResponsiveAppBarParams } from "../types/responsiveAppBarParams";
-import { useNavigate } from "react-router-dom";
 
 export default function ResponsiveAppBar({
   label,

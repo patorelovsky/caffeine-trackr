@@ -1,6 +1,6 @@
 import {
-    User as FirebaseUser,
-  } from "firebase/auth"
+  User as FirebaseUser,
+} from "firebase/auth";
 import { User } from "../types/user";
 
 export function firebaseUserToUser(

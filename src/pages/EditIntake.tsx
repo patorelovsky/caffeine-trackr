@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import IntakeForm from "../components/IntakeForm";
 import { useParams } from "react-router-dom";
+import IntakeForm from "../components/IntakeForm";
 
 type EditIntakeParams = {
   intakeId: string;

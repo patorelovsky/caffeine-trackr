@@ -1,3 +1,6 @@
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   IconButton,
@@ -10,13 +13,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import { CaffeineIntake } from "../types/caffeineIntake";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { newIntakeMenuItem } from ".";
+import { CaffeineIntake } from "../types/caffeineIntake";
 
 const data: CaffeineIntake[] = [
   {
