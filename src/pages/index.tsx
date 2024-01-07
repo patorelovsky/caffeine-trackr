@@ -1,9 +1,5 @@
 import { ResponsiveAppBarMenuItem } from "../types/responsiveAppBarMenuItem";
 
-export const editIntakeMenuItem: ResponsiveAppBarMenuItem = {
-  label: "Edit Intake",
-  url: "/new-intake",
-};
 export const loginMenuItem: ResponsiveAppBarMenuItem = {
   label: "Login",
   url: "/login",
@@ -27,4 +23,8 @@ export const intakeLogMenuItem: ResponsiveAppBarMenuItem = {
 export const newIntakeMenuItem: ResponsiveAppBarMenuItem = {
   label: "New Intake",
   url: "/new-intake",
+};
+export const editIntakeMenuItem: ResponsiveAppBarMenuItem = {
+  label: "Edit Intake",
+  url: "/edit-intake/:id",
 };

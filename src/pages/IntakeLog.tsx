@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { newIntakeMenuItem } from ".";
+import { editIntakeMenuItem, newIntakeMenuItem } from ".";
 import { CaffeineIntake } from "../types/caffeineIntake";
 
 const data: CaffeineIntake[] = [
@@ -51,7 +51,7 @@ export default function IntakeLog() {
     navigate(newIntakeMenuItem.url);
   };
   const handleEditIntakeClick = (intakeId: string) => {
-    navigate(`${newIntakeMenuItem.url}/${intakeId}`);
+    navigate(`${editIntakeMenuItem.url}/${intakeId}`);
   };
   const handleDeleteIntakeClick = (intakeId: string) => {
     // TODO: implement intake editing
