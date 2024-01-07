@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
 import { Box, Button } from "@mui/material";
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Logout() {
   const auth = getAuth();
