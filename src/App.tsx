@@ -20,9 +20,9 @@ import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { saveUser } from "./redux/slice/authSlice";
 import { firebaseUserToUser } from "./utils/firebaseUserToUser";
+import { useAppDispatch, useAppSelector } from "./redux/store";
 
 const appLabel = "CaffeineTrackr";
 
