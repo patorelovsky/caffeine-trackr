@@ -2,7 +2,10 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
+  Alert,
+  AlertTitle,
   Box,
+  CircularProgress,
   IconButton,
   Paper,
   SpeedDial,
@@ -14,36 +17,10 @@ import {
   TableRow,
 } from "@mui/material";
 import moment from "moment";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { editIntakeMenuItem, newIntakeMenuItem } from ".";
-import { CaffeineIntake } from "../types/caffeineIntake";
-
-const data: CaffeineIntake[] = [
-  {
-    id: "1",
-    date: 1704525704858,
-    source: "Coffee",
-    content: 100,
-  },
-  {
-    id: "2",
-    date: 1704535704858,
-    source: "Tea",
-    content: 50,
-  },
-  {
-    id: "3",
-    date: 1704545704858,
-    source: "Energy Drink",
-    content: 150,
-  },
-  {
-    id: "4",
-    date: 1704555704858,
-    source: "Caffeine Pills",
-    content: 200,
-  },
-];
+import { fetchIntakes, useAppDispatch, useAppSelector } from "../redux";
 
 export default function IntakeLog() {
   const navigate = useNavigate();
@@ -57,7 +34,24 @@ export default function IntakeLog() {
     // TODO: implement intake editing
   };
 
-  return (
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIntakes());
+  }, [dispatch]);
+
+  const { isLoading, error, data } = useAppSelector(({ intakes }) => intakes);
+
+  return isLoading ? (
+    <Box sx={{ display: "flex", height: 100 }}>
+      <CircularProgress sx={{ m: "auto" }} />
+    </Box>
+  ) : error ? (
+    <Alert severity="error">
+      <AlertTitle>{error.name}</AlertTitle>
+      {error.message}
+    </Alert>
+  ) : (
     <Box sx={{ m: 2 }}>
       <h1>Intake Log</h1>
       <SpeedDial
@@ -78,7 +72,7 @@ export default function IntakeLog() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(({ id, date, source, content }) => (
+            {data?.map(({ id, date, source, content }) => (
               <TableRow key={id}>
                 <TableCell>{moment(date).calendar()}</TableCell>
                 <TableCell>{source}</TableCell>
